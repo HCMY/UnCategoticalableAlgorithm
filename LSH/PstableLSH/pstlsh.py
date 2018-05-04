@@ -35,8 +35,8 @@ class PstableLSH(object):
 	'''
 	calculate .
 	'''
-	def manufacture_parameters():
-		"""parameters:
+	def manufacture_parameters(self):
+		"""un viewable parameters:
 		v_vector_length: your inpute vector's dimension, which could be obtain from your input data matrix
 		r: window num
 		lsh_nums: lsh functions collection nums
@@ -56,7 +56,7 @@ class PstableLSH(object):
 	'''
 	description:
 	'''
-	def calculate_hashval(vector, lsh_func_collection):
+	def calculate_hashval(self, vector, lsh_func_collection):
 		"""parameters
 		vector: a vector format data from data matrix
 		lsh_func_collection: LSH hash function collections, which's num is K probobaly.
@@ -70,6 +70,12 @@ class PstableLSH(object):
 
 		return hash_vals
 
+
+	def mdoel_saver(self):
+		"""ub viewable parameters
+
+		"""
+		#TODO
 
 
 
