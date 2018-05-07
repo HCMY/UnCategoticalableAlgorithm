@@ -6,7 +6,7 @@ import numpy as np
 
 """
 theories:implement from here: https://en.wikipedia.org/wiki/Locality-sensitive_hashing
-hash method: random projection hash
+hash method: random projection hash .
 reference :https://www.cnblogs.com/wt869054461/p/8148940.html 
 """
 
