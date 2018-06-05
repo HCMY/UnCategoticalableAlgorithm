@@ -5,7 +5,7 @@
 #include "actorgraph.h"
 
 
-int main(int argc, char const *argv[])
+int main2(int argc, char const *argv[])
 {
 	/*if(argc!=5){
 		std::err_notice = "incorrect number of arguments,
@@ -46,9 +46,10 @@ int main(int argc, char const *argv[])
 			s = graph.BFS(actor_from, actor_to);
         else
             s = graph.Dijkstra(actor_from, actor_to);
-		//output<<s<<std::endl;///uncomment it while use command line
-		std::cout<<s<<std::endl;
+		output<<s<<std::endl;///uncomment it while use command line
+		//std::cout<<s<<std::endl;
 	}
 
 	return 0;
 }
+

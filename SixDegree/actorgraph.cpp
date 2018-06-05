@@ -234,3 +234,59 @@ std::string ActorGraph::Dijkstra(Actor* from_copy, Actor* to_copy){
 	return s;
 }
 
+
+/**
+ * Method that find whether there is a connection between two actors after 
+ * all the movies in one year was added.
+ * @param: the two actors where we will find if there exists a path between
+ * @return: year of which these two actors are connected  
+ */
+int ActorGraph::finfConnecttionUsingBFS(Actor* from, Actor *to){
+	// made a copy here so the global one does not get poped 
+	std::priority_queue<Movie*, std::vector<Movie*>, ConnectionCompare> p = pq;
+	
+	// iterate each movie in a sorted queue 
+	while(!p.empty()){
+		int year = p.top()->getYear();// defaults to the first movie of that same year  
+		Movie* mov = p.top();
+		p.pop();
+
+		int next_year = year;
+		// Graphyify for each movie that is in the same year. i.e add more edges to each actor
+		while(!p.empty()){
+			graphifyFS(mov);
+			mov = p.top();
+			next_year = mov->getYear();
+			if(next_year != year) break;
+			p.pop();
+		}
+
+		/// run BFS to find whether this year gives us a valid path 
+		/// if the returned result is not an empty string
+		/// means a connection is established in this year
+		if(BFS(from, to) != "")
+			return year;
+	}
+
+	return 9999;
+}
+
+/**
+ * A graphify method made specifically for the actorconnection portion of the assignment.
+ * Only adds the edges that was passed in by the movie.
+ * @param: the movie whose actors in it are connected through this edge
+ * @return: void 
+ */
+void ActorGraph::graphifyFS(Movie* movie){
+	std::vector<Actor*> movie_actors = movie->getActors();
+	for(std::vector<Actor*>::iterator a1=movie_actors.begin(); a1!=movie_actors.end(); a1++){
+		for(std::vector<Actor*>::iterator a2=movie_actors.begin(); a2!=movie_actors.end();a2++){
+			if(*a1 != *a2){
+				Edge* edge = new Edge(movie, *a2);
+				(*a1)->addEdge(edge);
+			}
+		}
+	}
+}
+
+

@@ -58,6 +58,9 @@ public:
 	std::string BFS(Actor *from, Actor *to);
 	std::vector<std::pair<std::string, std::string>> loadPairs(char const *pairs);
 	std::string Dijkstra(Actor* from_copy, Actor* to_copy);
+	int finfConnecttionUsingBFS(Actor* from, Actor *to);
+	void graphifyFS(Movie* mov);
+
     /// get movie numbers of movies, actors, and edges
     const std::vector<int> getAllSize() const;
 
