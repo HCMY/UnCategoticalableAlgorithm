@@ -1,0 +1,86 @@
+# depslib dependency file v1.0
+1528153232 source:c:\users\stu.zhouyc\desktop\sixdegree\main.cpp
+	<iostream>
+	"edge.h"
+	"movie.h"
+	"actor.h"
+	"actorgraph.h"
+
+1528095195 c:\users\stu.zhouyc\desktop\sixdegree\edge.h
+	<string>
+	<vector>
+
+1528107164 c:\users\stu.zhouyc\desktop\sixdegree\movie.h
+	<string>
+	<vector>
+
+1528151889 c:\users\stu.zhouyc\desktop\sixdegree\actor.h
+	<string>
+	<vector>
+	"edge.h"
+	"movie.h"
+
+1528138377 c:\users\stu.zhouyc\desktop\sixdegree\actorgraph.h
+	<iostream>
+	<utility>
+	<string>
+	<queue>
+	<vector>
+	<set>
+	"actor.h"
+	"movie.h"
+	"edge.h"
+
+1528106898 source:c:\users\stu.zhouyc\desktop\sixdegree\actor.cpp
+	<string>
+	<vector>
+	<iostream>
+	<sstream>
+	<cstdio>
+	<cstdlib>
+	<fstream>
+	"actor.h"
+	"movie.h"
+
+1528155813 source:c:\users\stu.zhouyc\desktop\sixdegree\actorgraph.cpp
+	<fstream>
+	<iostream>
+	<sstream>
+	<utility>
+	<string>
+	<vector>
+	<stack>
+	<queue>
+	<set>
+	<climits>
+	<cstdlib>
+	<cstdio>
+	"actorgraph.h"
+	"actor.h"
+	"edge.h"
+	"movie.h"
+
+1528100226 source:c:\users\stu.zhouyc\desktop\sixdegree\edge.cpp
+	"edge.h"
+	"movie.h"
+	"actor.h"
+
+1528107246 source:c:\users\stu.zhouyc\desktop\sixdegree\movie.cpp
+	<iostream>
+	<fstream>
+	"movie.h"
+	"actor.h"
+
+1528155537 source:c:\users\stu.zhouyc\desktop\sixdegree\pathfinder.cpp
+	<fstream>
+	<iostream>
+	<string>
+	"actorgraph.h"
+
+1528154452 source:c:\users\stu.zhouyc\desktop\sixdegree\test.cpp
+	<iostream>
+	"edge.h"
+	"movie.h"
+	"actor.h"
+	"actorgraph.h"
+
