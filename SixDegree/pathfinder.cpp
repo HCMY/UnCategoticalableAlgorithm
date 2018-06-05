@@ -26,7 +26,7 @@ int main(int argc, char const *argv[])
 	char *file = "movie_casts.tsv";
 	char *pairs_file = "test_pairs.tsv";
 	char *outfile = "out_without_weight.tsv";
-	bool weighted_egdes = false;
+	bool weighted_egdes = true;
 
 	std::ofstream output;
 	output.open(outfile);
@@ -44,7 +44,10 @@ int main(int argc, char const *argv[])
 		std::string s;
 		if(!weighted_egdes)
 			s = graph.BFS(actor_from, actor_to);
-		output<<s<<std::endl;
+        else
+            s = graph.Dijkstra(actor_from, actor_to);
+		//output<<s<<std::endl;///uncomment it while use command line
+		std::cout<<s<<std::endl;
 	}
 
 	return 0;

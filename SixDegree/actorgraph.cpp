@@ -185,4 +185,52 @@ std::string ActorGraph::BFS(Actor* from_copy, Actor* to_copy){
 	return s;
 }
 
+std::string ActorGraph::Dijkstra(Actor* from_copy, Actor* to_copy){
+	std::set<Actor*>::iterator to  = actors_.find(to_copy);
+	std::set<Actor*>::iterator from = actors_.find(from_copy);
+	Actor *from_actor = *from;
+	Actor *to_actor = *to;
+
+	for(std::set<Actor*>::iterator a=actors_.begin(); a!=actors_.end(); a++){
+		(*a)->visited_ = false;
+		(*a)->dist_ = INT_MAX;
+	}
+
+	std::priority_queue<std::pair<int, Actor*>, std::vector<std::pair<int, Actor*>>, DistCompare> mypq;
+	from_actor->dist_ = 0;
+	mypq.push(std::make_pair(0, from_actor));
+
+	while(!mypq.empty()){
+		std::pair<int, Actor*> curr = mypq.top();
+		mypq.pop();
+
+		if(curr.second->visited_ == false){
+			curr.second->visited_ = true;
+			std::vector<Edge*> edges = curr.second->getEdges();
+			for(std::vector<Edge*>::iterator e=edges.begin(); e!=edges.end(); e++){
+				Edge* edge = *e;
+				int c = curr.second->dist_+(1+(2015 - edge->movie_->getYear()));
+				if(c < edge->actor_->dist_){
+					edge->actor_->pre_visted_actor_ = curr.second;
+					edge->actor_->pre_visted_movie_ = edge->movie_;
+					edge->actor_->dist_ = c;
+					mypq.push(std::make_pair(c, edge->actor_));
+				}
+			}
+		}
+	}
+
+	std::string s = "";
+	Actor* curr = to_actor;
+	s.append("("+to_actor->getName()+")");
+	while(curr!=from_actor){
+		std::stringstream stream;
+		stream<<curr->pre_visted_movie_->getYear();
+		s.insert(0, "--["+curr->pre_visted_movie_->getTitle()+"#@"+stream.str()+"]-->");
+		s.insert(0, "("+curr->pre_visted_actor_->getName()+")");
+		curr = curr->pre_visted_actor_;
+	}
+
+	return s;
+}
 
