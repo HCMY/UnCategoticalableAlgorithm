@@ -268,7 +268,7 @@ int ActorGraph::finfConnecttionUsingBFS(Actor* from, Actor *to){
 			return year;
 	}
 
-	return 9999;
+	return INT_MAX;
 }
 
 /**

@@ -5,6 +5,7 @@
 
 #include "actorgraph.h"
 #include "actor.h"
+#include "unionfind.h"
 
 int main(int argc, char const *argv[])
 {
@@ -30,7 +31,7 @@ int main(int argc, char const *argv[])
 	int year = 0;
 	clock_t start_t, end_t;
 	for(int idx=0; idx<vec.size(); idx++){
-		
+
 		start_t=clock();
 
 		Actor *actor1 = new Actor(vec.at(idx).first);

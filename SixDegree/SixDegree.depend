@@ -42,7 +42,7 @@
 	"actor.h"
 	"movie.h"
 
-1528213876 source:c:\users\stu.zhouyc\desktop\sixdegree\actorgraph.cpp
+1528250969 source:c:\users\stu.zhouyc\desktop\sixdegree\actorgraph.cpp
 	<fstream>
 	<iostream>
 	<sstream>
@@ -84,11 +84,24 @@
 	"actor.h"
 	"actorgraph.h"
 
-1528216746 source:c:\users\stu.zhouyc\desktop\sixdegree\actorconnections.cpp
+1528252012 source:c:\users\stu.zhouyc\desktop\sixdegree\actorconnections.cpp
 	<fstream>
 	<iostream>
 	<string>
 	<time.h>
 	"actorgraph.h"
 	"actor.h"
+	"unionfind.h"
+
+1528252959 c:\users\stu.zhouyc\desktop\sixdegree\unionfind.h
+	<iostream>
+	<utility>
+	<string>
+	<queue>
+	<vector>
+	<set>
+	"actor.h"
+	"movie.h"
+	"edge.h"
+	"actorgraph.h"
 
