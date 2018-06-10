@@ -11,12 +11,31 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "actorgraph.h"
+#include "ActorGraph.h"
 #include "actor.h"
 #include "edge.h"
 #include "movie.h"
 
 
+/*
+Parse file, extract actors, movie to graph
+at the end of this method, a graph will be generated
+
+==================parameters explaintation==============
+@in_filename: movie_casts
+@use_weight_edges: wether loading weights while create Graph
+@acotr_connection: wether create connect network while loading Graph
+========================================================
+
+------parameters----------|------type-----------|------required--|
+@in_filename              |   str-like          | 		true 	 |
+@use_weight_edges         |    boolean          |       true     |
+@actor_connection         |    boolean          |       true     |
+
+
+#return: bool, return true when loading process get succeed
+		otherwise, return false
+*/
 bool ActorGraph::loadFromFile(char const *in_filename, bool use_weight_edges,
                     bool actor_connection){
 
@@ -26,7 +45,7 @@ bool ActorGraph::loadFromFile(char const *in_filename, bool use_weight_edges,
     while(infile){
         std::string s;
         if(!getline(infile, s)) break;
-        if(!have_header){have_header=true; continue;}
+        if(!have_header){have_header=true; continue;}//skip the header
 
         std::istringstream ss(s);
         std::vector<std::string> record;
@@ -46,7 +65,9 @@ bool ActorGraph::loadFromFile(char const *in_filename, bool use_weight_edges,
         Actor *actor = new Actor(actor_name);
         Movie *movie = new Movie(movie_title, movie_year);
 
-			// if the actor dose not already exists
+		/// this step gonna use 'ActorCompare' function object in actorgpaph
+		/// to verdict wether the target actor is already exists
+		/// if doesn't exists, then insert it, else, delete it
         if((actors_.find(actor)==actors_.end())){
             actors_.insert(actor);
         }else{
@@ -54,6 +75,7 @@ bool ActorGraph::loadFromFile(char const *in_filename, bool use_weight_edges,
             delete(actor);
             actor = *ita;
         }
+
         if((movies_.find(movie)==movies_.end())){
             movies_.insert(movie);
             pq.push(movie);
@@ -65,7 +87,7 @@ bool ActorGraph::loadFromFile(char const *in_filename, bool use_weight_edges,
         movie->addActors(actor);
     }
 
-    if(actor_connection) graphify();
+    if(actor_connection) graphify();//loading graph weights
 
     if(!infile.eof()){
         std::cerr<<"Failed to read"<<in_filename<<std::endl;
@@ -76,6 +98,19 @@ bool ActorGraph::loadFromFile(char const *in_filename, bool use_weight_edges,
 }
 
 
+/*
+load test pairs used to test
+
+==================parameters explaintation==============
+@pairsfile: test_pairs.tsv
+========================================================
+
+------parameters----------|------type-----------|------required--|
+@pairsfile                |   str-like          | 		true 	 |
+
+
+#return: a vector contain elements like <actor, actor>
+*/
 std::vector<std::pair<std::string, std::string> > ActorGraph::loadPairs(char const *pairsfile){
 	std::vector<std::pair<std::string, std::string> > pairs_vec;
 	std::ifstream infile(pairsfile);
@@ -92,8 +127,17 @@ std::vector<std::pair<std::string, std::string> > ActorGraph::loadPairs(char con
 }
 
 
+/*
+access graph's elements, including actors, edges and movies
+notes: this methos will not be used in actual calculate
+	   I just use it do demostrate the information has been
+	   loading in Graph correctly or not
 
-
+#return: a vector contains total nums of above elements
+        index 0 is nums of actos in the graph
+        index 1 is nums of movies in the graph
+        index 2 is nums of movies in the graph
+*/
  const std::vector<int> ActorGraph::getAllSize() const{
     std::vector<int> actors_vec;
     int actor_nodes = actors_.size();
@@ -110,7 +154,11 @@ std::vector<std::pair<std::string, std::string> > ActorGraph::loadPairs(char con
     return actors_vec;
 }
 
-
+/*
+deploy edges of the Graph
+if two actors play in same movie, they'll be a edge between
+the edge was store in class Actor
+*/
 void ActorGraph::graphify(){
 	for(std::set<Movie*>::iterator m=movies_.begin(); m!=movies_.end(); m++){
 		std::vector<Actor*> movie_actors=(*m)->getActors();//get numbers of actors in this movie
@@ -129,9 +177,19 @@ void ActorGraph::graphify(){
 
 
 /**
- * BFS traversal to find the shortest path given two actors.
- * @param: the two actors who we will find the unweighted path between
- * @return: the string representation of the path
+  BFS traversal to find the shortest path given two actors.
+
+ ==================parameters explaintation==============
+@from_copy: host actor
+@to_copy: target actor you want to know
+========================================================
+
+------parameters----------|------type-----------|------required--|
+@from_actor               |   Actor             | 		true 	 |
+@to_actor                 |   Actor             |       true     |
+
+#return: shortest path as string from host actor to target actor
+		 the path's elements are movies
  */
 std::string ActorGraph::BFS(Actor* from_copy, Actor* to_copy){
 	std::set<Actor*>::iterator to = actors_.find(to_copy);
@@ -185,6 +243,13 @@ std::string ActorGraph::BFS(Actor* from_copy, Actor* to_copy){
 	return s;
 }
 
+
+/*
+Given actors X and Y, after which year did they become connected
+the edges' weight are years foumulate result
+
+return: string
+*/
 std::string ActorGraph::Dijkstra(Actor* from_copy, Actor* to_copy){
 	std::set<Actor*>::iterator to  = actors_.find(to_copy);
 	std::set<Actor*>::iterator from = actors_.find(from_copy);

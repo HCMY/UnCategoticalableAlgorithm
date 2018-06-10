@@ -23,6 +23,7 @@ bool UnionFind::loadFromFile(char const* in_filename, bool use_weighted_edges, b
 
 	while(infile){
 		std::string s;
+
 		if(!getline(infile, s)) break;
 		if(!have_header){have_header=true; continue;}//skip header
 
@@ -54,6 +55,7 @@ bool UnionFind::loadFromFile(char const* in_filename, bool use_weighted_edges, b
 
 		if(movies_.find(movie)==movies_.end()){
 			movies_.insert(movie);
+			pq_.push(movie);
 		}else{
 			std::set<Movie*>::iterator itm = movies_.find(movie);
 			delete(movie);

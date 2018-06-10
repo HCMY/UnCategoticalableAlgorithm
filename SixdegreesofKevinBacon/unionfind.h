@@ -11,8 +11,13 @@
 #include "actor.h"
 #include "movie.h"
 #include "edge.h"
-#include "actorgraph.h"
+#include "ActorGraph.h"
 
+
+/*
+the class's function is as same as the actorgraph's
+but we used union-find ADT to implemet it
+*/
 class UnionFind
 {
 public:
@@ -22,7 +27,6 @@ public:
 	Actor *finder(Actor* actor);
 	void unioner(Actor* act1, Actor* act2);
 	int findConnectionTree(Actor* from_copy, Actor* to_copy);
-	~UnionFind();
 
 protected:
 	std::set<Movie*, MovieCompara> movies_;

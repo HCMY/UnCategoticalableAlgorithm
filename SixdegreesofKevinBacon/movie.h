@@ -6,6 +6,11 @@
 
 class Actor;
 
+
+/*
+some of movies may have same name but its producted year is different
+alse they should have actors play in them.
+*/
 class Movie
 {
 public:

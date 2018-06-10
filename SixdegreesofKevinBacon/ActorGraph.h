@@ -12,6 +12,12 @@
 #include "movie.h"
 #include "edge.h"
 
+
+/*
+these ADT are function objects, which have its class type,
+we gonna use it to make some rules with STL
+(i.e. sort, inset regular in set. vector)
+*/
 struct ActorCompare{
 	bool operator() (Actor *const &act1, Actor* const &act2){
 		return act1->getName().compare(act2->getName()) < 0;
@@ -52,19 +58,16 @@ public:
 
 	bool loadFromFile(char const *in_filename, bool use_weight_edges,
 					  bool actor_connection);
-	
-	///create graph's edges
-	void graphify();
-	std::string BFS(Actor *from, Actor *to);
 	std::vector<std::pair<std::string, std::string>> loadPairs(char const *pairs);
-	std::string Dijkstra(Actor* from_copy, Actor* to_copy);
+	
+	void graphify();//create graph's edges
+	std::string BFS(Actor *from, Actor *to);//use to search shortest path in grapg
+	std::string Dijkstra(Actor* from_copy, Actor* to_copy);//use it to search between tow actors meet each other 
 	int finfConnecttionUsingBFS(Actor* from, Actor *to);
-	void graphifyFS(Movie* mov);
+	void graphifyFS(Movie* mov);//in final submission
 
     /// get movie numbers of movies, actors, and edges
-    const std::vector<int> getAllSize() const;
-
-	// ADD here something for final submission
+    const std::vector<int> getAllSize() const;//only ust to test wether the graph, especially its nodes, are created correctly
 
 protected:
 	std::set<Movie*, MovieCompara> movies_;
