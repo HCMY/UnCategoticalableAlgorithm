@@ -11,7 +11,6 @@ This is a temporary script file.
 
 # -*- coding: utf-8 -*-
 
-#s= []
 
 import urllib
 import re
@@ -325,41 +324,3 @@ if __name__=="__main__":
     t.join()
     print('over')
     print('共爬取人数:',get_people)
-
-'''
-201430490481
-uid_set = []
-for i in range(201431105000,201431105799):
-    uid_set.append(i)
-uid_set = [str(x) for x in uid_set]
-get_people = 0
-if __name__=="__main__":
-    global status
-    for uid in uid_set:
-        my_spy = Spyder('ma.jpg')
-        print('用户:',uid)
-        try:
-            status = my_spy.login(uid,password=uid)
-            print("status=",status)
-        except:
-            continue
-        COUT = 0
-        while(COUT<=5 and status is 1):
-            COUT+=1
-            try:
-                status = my_spy.login(uid,uid)
-                print("status yzx=",status)
-            except:
-                continue
-        if status is 2:
-           continue
-        elif status is 3:
-            get_people+=1
-            print('已爬取人数: ',get_people)
-            try:
-                my_spy.extract_info(account=uid)
-            except:
-                continue
-   
-      
-'''
