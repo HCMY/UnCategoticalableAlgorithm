@@ -5,7 +5,7 @@
 
 
 /**
-International Morse Code defines a standard encoding where each letter is mapped to a series 
+International Morse Code defines a standard encoding where each letter is mapped to a series
 of dots and dashes, as follows: "a" maps to ".-", "b" maps to "-...", "c" maps to "-.-.", and so on.
 
 For convenience, the full table for the 26 letters of the English alphabet is given below:
@@ -13,9 +13,9 @@ For convenience, the full table for the 26 letters of the English alphabet is gi
 [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--",
 "-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
 
-Now, given a list of words, each word can be written as a concatenation of the 
-Morse code of each letter. For example, "cab" can be written as "-.-.-....-", 
-(which is the concatenation "-.-." + "-..." + ".-"). We'll call such a concatenation, 
+Now, given a list of words, each word can be written as a concatenation of the
+Morse code of each letter. For example, "cab" can be written as "-.-.-....-",
+(which is the concatenation "-.-." + "-..." + ".-"). We'll call such a concatenation,
 the transformation of a word.
 
 Return the number of different transformations among all words we have.
@@ -23,7 +23,7 @@ Return the number of different transformations among all words we have.
 Example:
 Input: words = ["gin", "zen", "gig", "msg"]
 Output: 2
-Explanation: 
+Explanation:
 The transformation of each word is:
 "gin" -> "--...-."
 "zen" -> "--...-."
@@ -31,7 +31,7 @@ The transformation of each word is:
 "msg" -> "--...--."
 
 There are 2 different transformations, "--...-." and "--...--.".
- 
+
 */
 
 
@@ -39,7 +39,7 @@ There are 2 different transformations, "--...-." and "--...--.".
 
 using namespace std;
 
-vector<string> morse_vec = {".-","-...","-.-.","-..",".","..-.",
+const vector<string> morse_vec = {".-","-...","-.-.","-..",".","..-.",
 							"--.","....","..",".---","-.-",
 							".-..","--","-.","---",".--.",
 							"--.-",".-.","...","-","..-",
@@ -58,7 +58,6 @@ const map<char, string> mapper(){
 }
 
 map<char, string> MORSE_MAP = mapper();
-
 bool compare(const string target_str, const vector<string> &result_vec){
 	for(int idx=0; idx<result_vec.size(); idx++){
 		if(target_str.compare(result_vec[idx])==0)
@@ -68,7 +67,7 @@ bool compare(const string target_str, const vector<string> &result_vec){
 	return true;
 }
 
-string convert2MorseCode(string convert_str){
+const string convert2MorseCode(string convert_str){
 	string encoded_str = "";
 	for(int idx=0; idx<convert_str.length(); idx++){
 		char tmp_char = convert_str[idx];
