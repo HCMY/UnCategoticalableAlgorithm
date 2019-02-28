@@ -16,6 +16,7 @@ First, iterate the array counting number of 0's, 1's, and 2's, then overwrite ar
 Could you come up with a one-pass algorithm using only constant space?
 */
 
+///插入排序就可以了，时间复杂度O(n^2),空间O(1)
 #include <iostream>
 #include <vector>
 
