@@ -15,8 +15,8 @@ Explanation: 3 is a peak element and your function should return the index numbe
 Example 2:
 
 Input: nums = [1,2,1,3,5,6,4]
-Output: 1 or 5 
-Explanation: Your function can return either index number 1 where the peak element is 2, 
+Output: 1 or 5
+Explanation: Your function can return either index number 1 where the peak element is 2,
              or index number 5 where the peak element is 6.
 N
 */
@@ -44,19 +44,20 @@ Node *new_node(int key){
 }
 
 Node *insert(Node *root, int key){
-	if(root==NULL) return new_node(key);
-	if(key<root->key)
-		root->left = insert(root->left,key);
-	else
-		root->right = insert(root->left, key);
 
+	if(root==NULL) return new_node(key);
+	if(key<=root->key){
+        root->left = insert(root->left,key);
+	}else{
+		root->right = insert(root->right, key);
+	}
 	return root;
 }
 
 int find_peak(Node *root){
     if(root!=NULL){
         if(root->left!=NULL && root->right!=NULL)
-            return root->key;
+            return root->right->key;
         find_peak(root->left);
         find_peak(root->right);
     }
@@ -102,8 +103,8 @@ public:
 
 int main()
 {
-    Solution solu;
-    vector<int> v = {1,2,3,1};
+    Solution2 solu;
+    vector<int> v = {1,2,1,3,5,6,4};
     cout<<solu.findPeakElement(v)<<endl;
     return 0;
 }
