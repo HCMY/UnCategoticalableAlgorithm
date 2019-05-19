@@ -5,28 +5,38 @@
 using namespace std;
 
 
+
+void back_tracking(vector<vector<int>> &result, vector<int> &tmp_result,int k,int n,int start){
+	if(tmp_result.size()==k){
+		result.push_back(tmp_result);
+		return;
+	}
+
+	for(int idx=start;idx<=n;idx++){
+        tmp_result.push_back(idx);
+        back_tracking(result,tmp_result,k,n,start+1);
+        tmp_result.pop_back();
+        start+=1;
+		}
+}
+
 class Solution {
 public:
     vector<vector<int>> combine(int n, int k) {
-        vector<vector<int>> res;
-        vector<int> cur;
-        tracking(res,cur,n,k);
-        return res;
-    }
-    void tracking(vector<vector<int>> &res,vector<int> &cur,int n,int k){
-        if(k == 0){
-            res.push_back(cur);
-        }
-        else{
-            for(int i=n;i>0;i--){
-                cur.push_back(i);
-                tracking(res,cur,i-1,k-1);
-                cur.pop_back();
-            }
-        }
+    	vector<int> nums;
+    	vector<int> tmp_result;
+    	vector<vector<int>> result;
+    	vector<bool> visited(n,false);
 
+    	for(int idx=1;idx<=n;idx++)
+    		nums.push_back(idx);
+
+    	back_tracking(result,tmp_result,k,n,1);
+
+    	return result;
     }
 };
+
 
 int main(int argc, char const *argv[])
 {
